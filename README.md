@@ -2,3 +2,6 @@
 
 # infrared remote control data analyze tool
 use [esp8266_ir_blaster](https://github.com/duchenpaul/esp8266_ir_blaster) to get data from infrared, analyze and load to database
+
+
+reference: [NEC IR Remote Control Interface with 8051](https://exploreembedded.com/wiki/NEC_IR_Remote_Control_Interface_with_8051)
