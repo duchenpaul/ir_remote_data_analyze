@@ -5,14 +5,10 @@ import toolkit_sqlite
 
 import ir_remote_data_reader
 
-DB_FILE = 'ir_remote_data.db'
+import config
 
-mysql_config = {
-    'user': 'pi',
-    'password': 'raspberry',
-    'server': 'rpi',
-    'database': 'test', 
-    }
+DB_FILE = config.SQLITE_CONFIG['db_file']
+mysql_config = config.MYSQL_CONFIG
 
 
 def insert_to_db(data_dict):

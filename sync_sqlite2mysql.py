@@ -2,9 +2,11 @@ import sqlite3
 import pandas as pd
 from sqlalchemy import create_engine, MetaData
 
-DB_FILE = r'ir_remote_data.db'
-# DB_FILE = r'C:\Users\chdu\Desktop\Portal\Other\tidal_job_extract\tidal_database.db'
+import config
 
+DB_FILE = config.SQLITE_CONFIG['db_file']
+
+mysql_config = config.MYSQL_CONFIG
 SOURCE_TABLE_NAME_LIST = ['ir_remote_data', 'ir_remote_device', ]
 
 
@@ -21,14 +23,6 @@ def sync_table(SOURCE_TABLE_NAME):
         with conn.begin():
             df = pd.read_sql_table(SOURCE_TABLE_NAME, conn)
 
-    # print(df)
-
-    mysql_config = {
-        'user': 'pi',
-        'password': 'raspberry',
-        'server': 'rpi',
-        'database': 'test',
-    }
 
     engine = create_engine(
         'mysql://{user}:{password}@{server}/{database}'.format(**mysql_config))
