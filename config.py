@@ -5,3 +5,5 @@ configDict = toolkit_config.read_config_general()
 
 MYSQL_CONFIG = configDict['mysql database']
 SQLITE_CONFIG = configDict['sqlite database']
+
+IR_TRANSPONDER_URL = configDict['ir transponder']['url']

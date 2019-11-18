@@ -3,7 +3,9 @@ import time
 
 import toolkit_text
 
-url = r'http://192.168.31.173/record'
+import config
+
+url = config.IR_TRANSPONDER_URL + '/record'
 
 MAX_TRY = 10
 
