@@ -10,17 +10,7 @@ import config
 
 url = config.IR_TRANSPONDER_URL + '/play'
 
-
-DB_FILE = config.SQLITE_CONFIG['db_file']
-mysql_config = config.MYSQL_CONFIG
-
-
-sqlite_engine = create_engine('sqlite:///{}'.format(DB_FILE), echo=False)
-
-mysql_engine = create_engine(
-    'mysql://{user}:{password}@{server}/{database}'.format(**mysql_config))
-
-engine = sqlite_engine
+engine = config.sqlite_engine
 
 metadata = MetaData()
 vw_ir_remote_info = Table('vw_ir_remote_info', metadata,
@@ -61,6 +51,6 @@ def ir_data_send(device_name, rc_button):
 if __name__ == '__main__':
     device_name = 'speaker_remote'
     rc_button = 'mute'
-    for i in range(150):
+    for i in range(15):
         ir_data_send(device_name, rc_button)
 

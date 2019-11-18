@@ -1,12 +1,10 @@
 import sqlite3
 import pandas as pd
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import MetaData
 
 import config
 
-DB_FILE = config.SQLITE_CONFIG['db_file']
 
-mysql_config = config.MYSQL_CONFIG
 SOURCE_TABLE_NAME_LIST = ['ir_remote_data', 'ir_remote_device', ]
 
 
@@ -16,16 +14,13 @@ def sync_table(SOURCE_TABLE_NAME):
     TARGET_TABLE_NAME = SOURCE_TABLE_NAME
     # TARGET_TABLE_NAME = 'ctl_rs_process_sql_META'
 
-    engine = create_engine('sqlite:///{}'.format(DB_FILE), echo=False)
-    metadata = MetaData(engine)
 
-    with engine.connect() as conn:
+    with config.sqlite_engine.connect() as conn:
         with conn.begin():
             df = pd.read_sql_table(SOURCE_TABLE_NAME, conn)
 
 
-    engine = create_engine(
-        'mysql://{user}:{password}@{server}/{database}'.format(**mysql_config))
+    engine = config.mysql_engine
 
     with engine.connect() as conn:
         with conn.begin():

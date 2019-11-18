@@ -8,7 +8,6 @@ import ir_remote_data_reader
 import config
 
 DB_FILE = config.SQLITE_CONFIG['db_file']
-mysql_config = config.MYSQL_CONFIG
 
 
 def insert_to_db(data_dict, device_name, rc_button):
@@ -28,8 +27,7 @@ def insert_to_db(data_dict, device_name, rc_button):
         df_dev.to_sql('ir_remote_device', sqlitedb.conn,
                       if_exists='append', index=False)
 
-    engine = create_engine(
-        'mysql://{user}:{password}@{server}/{database}'.format(**mysql_config))
+    engine = config.mysql_engine
 
     with engine.connect() as conn:
         with conn.begin():
