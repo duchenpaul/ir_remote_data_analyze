@@ -28,6 +28,9 @@ vw_ir_remote_info = Table('vw_ir_remote_info', metadata,
 
 
 def ir_data_send(device_name, rc_button):
+    cmd = '{}.{}'.format(device_name, rc_button)
+
+    print('Sending command ' + cmd)
     rawDataSelect = select([vw_ir_remote_info.c.rawData]).where(
         vw_ir_remote_info.c.device_name == device_name).where(vw_ir_remote_info.c.rc_button == rc_button)
 
@@ -38,8 +41,7 @@ def ir_data_send(device_name, rc_button):
     try:
         assert rawDataSet
     except AssertionError as e:
-        raise Exception('Data not found for {}.{}'.format(
-            device_name, rc_button))
+        raise Exception('Data not found for ' + cmd)
 
     rawData = rawDataSet[0]
     data = 'timings=' + ','.join([x.strip() for x in rawData.split(',')])
@@ -50,10 +52,15 @@ def ir_data_send(device_name, rc_button):
         response_text = resp.text
     except Exception as e:
         raise
+    else:
+        print('Sent')
+        time.sleep(50/1000)
     return response_text
 
 
 if __name__ == '__main__':
     device_name = 'speaker_remote'
-    rc_button = 'onoff'
-    ir_data_send(device_name, rc_button)
+    rc_button = 'mute'
+    for i in range(150):
+        ir_data_send(device_name, rc_button)
+
