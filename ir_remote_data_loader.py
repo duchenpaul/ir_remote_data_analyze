@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 import pandas as pd
 
 import toolkit_sqlite
@@ -11,13 +11,14 @@ DB_FILE = config.SQLITE_CONFIG['db_file']
 mysql_config = config.MYSQL_CONFIG
 
 
-def insert_to_db(data_dict):
+def insert_to_db(data_dict, device_name, rc_button):
     data_dict['comment'] = ''
     df = pd.DataFrame([data_dict])
 
     df_dev = dict()
-    df_dev['device_name'] = 'air_conditioner'
-    df_dev['rc_button'] = 'test'
+    df_dev['device_name'] = device_name
+    # wind speed: 0: auto, 1: light, 2: mid, 3: max
+    df_dev['rc_button'] = rc_button
     df_dev['rc_button_data'] = data_dict['data']
     df_dev = pd.DataFrame([df_dev])
 
@@ -40,4 +41,6 @@ def insert_to_db(data_dict):
 
 if __name__ == '__main__':
     data_dict = ir_remote_data_reader.ir_data_read_extract()
-    insert_to_db(data_dict)
+    device_name = 'speaker_remote'
+    rc_button = 'button_9'
+    insert_to_db(data_dict, device_name, rc_button)
