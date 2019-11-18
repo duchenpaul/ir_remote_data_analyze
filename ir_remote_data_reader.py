@@ -15,7 +15,7 @@ def ir_data_read():
     while response_text == 'empty' and tried_times < MAX_TRY:
         resp = requests.get(url, timeout=10)
         response_text = resp.text
-        if response_text == 'FFFFFFFFFFFFFFFF':
+        if 'FFFFFFFFFFFFFFFF' in response_text:
             print('Bad data recieved, retry')
             tried_times -= 1
             continue
@@ -27,6 +27,8 @@ def ir_data_read():
         assert response_text != 'empty'
     except AssertionError as e:
         raise Exception('Did not recieve any data')
+    else:
+        print('Read {}'.format(response_text))
     
     return response_text
 
