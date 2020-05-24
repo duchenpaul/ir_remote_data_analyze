@@ -3,5 +3,13 @@
 # infrared remote control data analyze tool
 use [esp8266_ir_blaster](https://github.com/duchenpaul/esp8266_ir_blaster) to get data from infrared, analyze and load to database
 
+# Air conditioner coding format
+Air conditioner mode format: `<MODE>-<WIND SPEED>-<FLAPS>-<TEMPERATURE>`
+- MODE: heat/cool
+- WIND SPEED: auto/high/mid/low
+- FLAPS: on/off
+- TEMPERATURE: 16~31
+
+example: `cool-high-on-28`
 
 reference: [NEC IR Remote Control Interface with 8051](https://exploreembedded.com/wiki/NEC_IR_Remote_Control_Interface_with_8051)
