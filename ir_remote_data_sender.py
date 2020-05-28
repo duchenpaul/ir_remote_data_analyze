@@ -1,10 +1,10 @@
+import logging
 import time
 
 import requests
 from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.sql import table, column, select
 
-import toolkit_text
 
 import config
 
@@ -32,7 +32,7 @@ def ir_data_send(device_name, rc_button):
     try:
         assert rawDataSet
     except AssertionError as e:
-        raise Exception('Data not found for ' + cmd)
+        raise AssertionError('Data not found for ' + cmd)
 
     rawData = rawDataSet[0]
     data = 'timings=' + ','.join([x.strip() for x in rawData.split(',')])
@@ -41,6 +41,8 @@ def ir_data_send(device_name, rc_button):
     try:
         resp = requests.post(url, data=data, headers=header, timeout=10)
         response_text = resp.text
+    except requests.exceptions.ConnectTimeout as e:
+        logging.error('IR blaster is not reachable')
     except Exception as e:
         raise
     else:
