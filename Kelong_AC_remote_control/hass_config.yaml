@@ -1,0 +1,23 @@
+climate:
+  - platform: mqtt
+    name: Kelong
+    modes:
+      - "off"
+      - "cool"
+    swing_modes:
+      - "on"
+      - "off"
+    fan_modes:
+      - 'auto'
+      - "high"
+      - "medium"
+      - "low"
+    initial: 27
+    min_temp: 18
+    max_temp: 31
+    power_command_topic: "Kelong/ac/power/set"
+    mode_command_topic: "Kelong/ac/mode/set"
+    temperature_command_topic: "Kelong/ac/temperature/set"
+    fan_mode_command_topic: "Kelong/ac/fan/set"
+    swing_mode_command_topic: "Kelong/ac/swing/set"
+    current_temperature_topic: "Kelong/ac/temperature/state"
