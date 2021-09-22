@@ -52,9 +52,15 @@ def ir_data_send(device_name, rc_button):
 
 
 if __name__ == '__main__':
-    device_name = 'air_conditioner'
-    rc_button = 'ONOFF'
-    ir_data_send(device_name, rc_button)
+    device_name = 'solar_light'
+    rc_button = 'ON'
+    times = 1
+    for x in range(times):
+        ir_data_send(device_name, rc_button)
+        if x < times:
+            time.sleep(.5)
+    # rc_button = 'OFF'
+    # ir_data_send(device_name, rc_button)
 
 
 
