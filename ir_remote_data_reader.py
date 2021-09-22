@@ -7,7 +7,7 @@ import config
 
 url = config.IR_TRANSPONDER_URL + '/record'
 
-MAX_TRY = 10
+MAX_TRY = 15
 
 
 def ir_data_read():
